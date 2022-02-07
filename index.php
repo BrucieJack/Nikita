@@ -128,15 +128,9 @@
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
 										 <!-- 2 -->
-										<?php 
-										//фиксануть категории и имена, убрать окошко процента если скидки нет, (*посчтитать старую цену товара через процент) 
-										$link = mysqli_connect("192.168.56.56:3306", "homestead", "secret", "electro_db");
-										$sql = 'SELECT image, category.name, discount, product.name, cost
-										FROM product
-										INNER JOIN (image, category) ON  (image.product_id = product.id AND product.category_id = category.id)';
-										$result = mysqli_query($link, $sql);
-										$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-										print_r($rows)
+										<?php  
+										require_once 'functions/dbHelper.php';
+										$rows = getProducts();
 										?>
 										<?php foreach ($rows as $row):?>
 										<!-- product -->
@@ -148,7 +142,7 @@
 												</div>
 											</div>
 											<div class="product-body">
-												<p class="product-category"><?=$row['name'];?></p>
+												<p class="product-category"><?=$row['category'];?></p>
 												<h3 class="product-name"><a href="#"><?=$row['name'];?></a></h3>
 												<h4 class="product-price"><?=$row['cost'];?> <del class="product-old-price">$990.00</del></h4>
 												<div class="product-rating">

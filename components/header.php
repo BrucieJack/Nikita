@@ -39,16 +39,12 @@
 									<select class="input-select" name="categories">
 										<!-- 1 -->
 										<?php
-										$link = mysqli_connect("192.168.56.56:3306", "homestead", "secret", "electro_db");
-										$sql = 'SELECT name FROM category';
-										$result = mysqli_query($link, $sql);
-										while ($rws = mysqli_fetch_assoc($result)) {
-											$arr[] = $rws['name'];
-										}
+										require 'functions/dbHelper.php';
+										$arr = getCategories();
 										?>
 										<option value="0">All Categories</option>
-										<?php foreach ($arr as $name): ?>
-											<option value="1"> <?= $name; ?> </option>
+										<?php foreach ($arr as $row): ?>
+											<option value="<?= $row['id']; ?>"> <?= $row['name']; ?> </option>
 										<?php endforeach;?>
 									</select>
 									<input class="input" placeholder="Search here">
